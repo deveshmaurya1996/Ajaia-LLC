@@ -46,7 +46,7 @@ export function AIAssistantSidebar({
   const healthValue = typeof healthScore === "number" ? healthScore : null
 
   return (
-    <aside className="lg:sticky lg:top-20 space-y-6 text-sm">
+    <aside className="space-y-6 text-sm">
       <div>
         <div className="flex items-center justify-between mb-2">
           <h3 className="font-medium">Insights</h3>

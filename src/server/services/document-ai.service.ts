@@ -24,8 +24,10 @@ export const documentAIService = {
     if (!doc) throw notFound()
 
     const provider = getAIProvider()
+    const plain = plainTextForAnalysis(content)
     const analysis = sanitizeAnalysisResult(
-      (await provider.analyze(plainTextForAnalysis(content))) as DocumentAnalysis,
+      (await provider.analyze(plain)) as DocumentAnalysis,
+      plain,
     )
 
     await taskRepository.replaceExtractedTasks(documentId, analysis.actionItems)

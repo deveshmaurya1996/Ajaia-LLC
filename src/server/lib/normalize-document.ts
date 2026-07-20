@@ -5,6 +5,7 @@ import {
   sanitizeAnalysisText,
   toAnalysisText,
 } from "@/lib/document-content"
+import { buildHeuristicSummary, isCopyPasteSummary } from "@/lib/document-insights"
 import type { DocumentAnalysis } from "@/server/ai/providers/ai-provider.interface"
 
 type DocumentRecord = {
@@ -57,11 +58,20 @@ function sanitizeJsonSuggestions(value: unknown): unknown {
     .filter((s) => s.message.length > 0)
 }
 
-export function sanitizeAnalysisResult(analysis: DocumentAnalysis): DocumentAnalysis {
+export function sanitizeAnalysisResult(
+  analysis: DocumentAnalysis,
+  sourcePlain?: string,
+): DocumentAnalysis {
+  const plain = sourcePlain ?? ""
+  let summary = sanitizeAnalysisText(analysis.summary)
+  if (plain && isCopyPasteSummary(summary, plain)) {
+    summary = buildHeuristicSummary(plain, analysis.title)
+  }
+
   return {
     ...analysis,
     title: sanitizeAnalysisText(analysis.title),
-    summary: sanitizeAnalysisText(analysis.summary),
+    summary,
     decisions: sanitizeAnalysisList(analysis.decisions),
     tags: sanitizeAnalysisList(analysis.tags),
     timeline: analysis.timeline.map((t) => ({

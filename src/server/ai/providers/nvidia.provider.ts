@@ -1,6 +1,12 @@
 import { documentAnalysisSchema } from "../schemas/analysis.schema"
 import type { AIProvider, DocumentAnalysis } from "./ai-provider.interface"
 import { toAnalysisText, toPlainText, titleFromSourceText } from "@/lib/document-content"
+import {
+  buildHeuristicSummary,
+  extractActionItemsFromText,
+  inferDocumentTags,
+  isCopyPasteSummary,
+} from "@/lib/document-insights"
 
 const dueKeywords = [
   "today",
@@ -27,37 +33,31 @@ function estimateReadingTimeMinutes(content: string) {
 function heuristicAnalyze(content: string): DocumentAnalysis {
   const plain = toAnalysisText(content)
   const title = titleFromSourceText(plain, "Untitled")
+  const summary = buildHeuristicSummary(plain, title)
 
-  const sentences = plain
-    .replace(/\n+/g, " ")
-    .split(/(?<=[.!?])\s+/)
-    .map((s) => s.trim())
-    .filter(Boolean)
-
-  const summary =
-    toPlainText(sentences.slice(0, 2).join(" ")).slice(0, 400) ||
-    "Summary will appear as you add details."
-
+  const actionItems = extractActionItemsFromText(plain)
   const dueRegex = dueKeywords.map((d) => d.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")
   const taskRegex = new RegExp(
     `\\b([A-Z][a-zA-Z]+)\\b\\s+(?:will\\s+)?([a-zA-Z]+)\\b.*?\\b(${dueRegex})\\b`,
     "gi",
   )
 
-  const actionItems: DocumentAnalysis["actionItems"] = []
-  const timeline: DocumentAnalysis["timeline"] = []
   for (;;) {
     const match = taskRegex.exec(plain)
     if (!match) break
     const owner = match[1]
     const task = match[2]
     const due = match[3]
-    actionItems.push({ owner, task, due })
-    timeline.push({ date: due, event: task })
+    const exists = actionItems.some((t) => t.owner === owner && t.task === task)
+    if (!exists) actionItems.push({ owner, task, due })
   }
 
+  const timeline: DocumentAnalysis["timeline"] = actionItems
+    .filter((t) => t.due)
+    .map((t) => ({ date: t.due!, event: `${t.owner}: ${t.task}` }))
+
   const decisions: string[] = []
-  const decisionMatch = plain.match(/Decision[:\\-]\\s*([^\\n.]+)/i)
+  const decisionMatch = plain.match(/Decision[:\-]\s*([^\n.]+)/i)
   if (decisionMatch?.[1]) {
     decisions.push(
       ...decisionMatch[1]
@@ -68,29 +68,25 @@ function heuristicAnalyze(content: string): DocumentAnalysis {
     )
   }
 
-  const tags: string[] = []
-  const lower = plain.toLowerCase()
-  if (lower.includes("postgre")) tags.push("Backend")
-  if (lower.includes("sprint")) tags.push("Sprint")
-  if (lower.includes("pr")) tags.push("Product")
-  if (tags.length === 0) tags.push("Docs")
+  const tags = inferDocumentTags(plain)
 
   const suggestions: DocumentAnalysis["suggestions"] = []
   if (actionItems.length > 0) {
-    suggestions.push({ type: "positive", message: `${actionItems.length} action items identified` })
+    suggestions.push({ type: "positive", message: `${actionItems.length} action item(s) identified` })
   } else {
-    suggestions.push({ type: "warning", message: "Add action verbs to extract tasks automatically" })
+    suggestions.push({ type: "warning", message: "Add named owners and due dates for action items" })
   }
-  if (!/conclusion/i.test(plain)) {
-    suggestions.push({ type: "warning", message: "Missing conclusion" })
+  if (substantiveLinesEmpty(plain)) {
+    suggestions.push({ type: "warning", message: "Sections are still mostly empty — add meeting notes or details" })
   }
 
-  const healthScoreBase = 60
+  const healthScoreBase = 55
   const healthScore =
     healthScoreBase +
-    (actionItems.length > 0 ? 20 : -10) +
+    (actionItems.length > 0 ? 20 : 0) +
     (decisions.length > 0 ? 10 : 0) +
-    (suggestions.some((s) => s.type === "warning") ? -10 : 0)
+    (substantiveLinesEmpty(plain) ? -15 : 10) +
+    (suggestions.some((s) => s.type === "warning") ? -5 : 5)
 
   return {
     title,
@@ -105,6 +101,15 @@ function heuristicAnalyze(content: string): DocumentAnalysis {
   }
 }
 
+function substantiveLinesEmpty(plain: string): boolean {
+  return !plain
+    .split(/\r?\n/)
+    .some((line) => {
+      const t = line.replace(/^#{1,6}\s+/, "").replace(/^[-*+]\s+/, "").trim()
+      return t.length > 12 && !/^owner:\s*task/i.test(t)
+    })
+}
+
 export class NvidiaProvider implements AIProvider {
   async analyze(content: string): Promise<DocumentAnalysis> {
     const plainContent = toAnalysisText(content)
@@ -117,11 +122,15 @@ export class NvidiaProvider implements AIProvider {
     }
 
     const system =
-      "You extract structured information from documents for a team knowledge workflow. Return only valid JSON following the schema."
+      "You extract structured insights from documents. Return only valid JSON. " +
+      "The summary must be 1-2 original sentences describing what the document is about — " +
+      "never copy headings, markdown syntax, or bullet labels verbatim."
 
     const user =
-      `Analyze the following document content.\n\n` +
-      `Return JSON with keys: title, summary, actionItems[{owner,task,due?}], timeline[{date,event}], decisions[string[]], tags[string[]], suggestions[{type,message}[]], healthScore[number 0..100], readingTimeMinutes[number].\n\n` +
+      `Analyze the document below.\n\n` +
+      `Return JSON: title, summary (1-2 sentences, plain English, no # headings), ` +
+      `actionItems[{owner,task,due?}], timeline[{date,event}], decisions[string[]], ` +
+      `tags[string[]], suggestions[{type,message}[]], healthScore[0-100], readingTimeMinutes.\n\n` +
       `Document:\n${plainContent}`
 
     try {
@@ -180,7 +189,12 @@ export class NvidiaProvider implements AIProvider {
       const parsed = documentAnalysisSchema.safeParse(extracted)
       if (!parsed.success) return heuristicAnalyze(plainContent)
 
-      return parsed.data
+      const result = parsed.data
+      if (isCopyPasteSummary(result.summary, plainContent)) {
+        result.summary = buildHeuristicSummary(plainContent, result.title)
+      }
+
+      return result
     } catch (err) {
       console.warn("NVIDIA API request failed, using heuristic fallback", err)
       return heuristicAnalyze(plainContent)

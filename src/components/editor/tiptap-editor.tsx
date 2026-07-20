@@ -85,10 +85,10 @@ export function TiptapEditor({
   if (!editor) return null
 
   return (
-    <div className="surface-card overflow-hidden tiptap-document">
+    <div className="surface-card tiptap-document">
       <EditorContent
         editor={editor}
-        className="max-w-none p-5 outline-none [&_.ProseMirror]:min-h-[420px] [&_.ProseMirror]:outline-none [&_.ProseMirror_a]:text-primary [&_.ProseMirror_a]:underline [&_.ProseMirror_a]:underline-offset-2"
+        className="max-w-none p-5 outline-none [&_.ProseMirror]:min-h-[120px] [&_.ProseMirror]:outline-none [&_.ProseMirror_a]:text-primary [&_.ProseMirror_a]:underline [&_.ProseMirror_a]:underline-offset-2"
       />
     </div>
   )

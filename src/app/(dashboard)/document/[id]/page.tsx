@@ -88,10 +88,10 @@ export default function DocumentPage() {
   })
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8">
-      <div className="grid lg:grid-cols-12 gap-8">
-        <div className="lg:col-span-8 space-y-3">
-          <div className="flex items-center justify-between gap-3 pb-2 border-b border-border/50">
+    <div className="mx-auto flex h-full min-h-0 w-full max-w-6xl flex-col overflow-hidden px-4 max-lg:h-auto max-lg:overflow-visible md:px-8">
+      <div className="grid min-h-0 flex-1 gap-6 max-lg:flex-none lg:grid-cols-12 lg:gap-8">
+        <div className="flex min-h-0 flex-col max-lg:min-h-[calc(100vh-8rem)] lg:col-span-8">
+          <div className="flex shrink-0 items-center justify-between gap-3 border-b border-border/50 py-3">
             <Input
               value={title}
               onChange={(e) => {
@@ -100,9 +100,9 @@ export default function DocumentPage() {
                 markDirtyAndSchedule({ title: next })
               }}
               placeholder="Untitled"
-              className="border-0 bg-transparent text-xl font-semibold tracking-tight shadow-none focus-visible:ring-0 px-0 max-w-xl"
+              className="max-w-xl border-0 bg-transparent px-0 text-xl font-semibold tracking-tight shadow-none focus-visible:ring-0"
             />
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="flex shrink-0 items-center gap-2">
               <SaveStatus state={saveState} isDirty={isDirty} />
               <Button
                 variant="outline"
@@ -123,25 +123,29 @@ export default function DocumentPage() {
             </div>
           </div>
 
-          <EditorToolbar editor={editor} />
+          <div className="shrink-0 py-2">
+            <EditorToolbar editor={editor} />
+          </div>
 
-          {docQuery.isLoading || !docQuery.data ? (
-            <div className="h-[420px] rounded-xl border border-border/50 bg-muted/40 animate-pulse" />
-          ) : (
-            <TiptapEditor
-              documentId={documentId}
-              initialContent={docQuery.data.content ?? ""}
-              contentFormat={docQuery.data.contentFormat ?? "html"}
-              onEditorReady={setEditor}
-              onChange={(html) => {
-                setContent(html)
-                markDirtyAndSchedule({ content: html })
-              }}
-            />
-          )}
+          <div className="min-h-0 flex-1 overflow-y-auto pb-4">
+            {docQuery.isLoading || !docQuery.data ? (
+              <div className="h-full min-h-[200px] animate-pulse rounded-xl border border-border/50 bg-muted/40" />
+            ) : (
+              <TiptapEditor
+                documentId={documentId}
+                initialContent={docQuery.data.content ?? ""}
+                contentFormat={docQuery.data.contentFormat ?? "html"}
+                onEditorReady={setEditor}
+                onChange={(html) => {
+                  setContent(html)
+                  markDirtyAndSchedule({ content: html })
+                }}
+              />
+            )}
+          </div>
         </div>
 
-        <div className="lg:col-span-4">
+        <div className="min-h-0 overflow-y-auto pb-4 lg:col-span-4">
           <AIAssistantSidebar
             documentId={documentId}
             healthScore={healthScore}

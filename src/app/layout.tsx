@@ -32,7 +32,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col" suppressHydrationWarning>
+      <body className="h-full overflow-hidden flex flex-col" suppressHydrationWarning>
         <Providers>
           {children}
           <CommandPalette />

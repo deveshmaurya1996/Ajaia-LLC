@@ -17,7 +17,7 @@ export function AppSidebar() {
   const setCommandOpen = useCommandPaletteStore((s) => s.setOpen)
 
   return (
-    <aside className="hidden md:flex w-[220px] shrink-0 flex-col border-r border-border/60 bg-sidebar">
+    <aside className="hidden md:flex h-full w-[220px] shrink-0 flex-col overflow-hidden border-r border-border/60 bg-sidebar">
       <div className="flex h-14 items-center px-5 border-b border-border/60">
         <Link href="/" className="text-[15px] font-semibold tracking-tight">
           FlowDocs
