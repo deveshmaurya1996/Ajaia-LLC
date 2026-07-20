@@ -1,3 +1,1 @@
-Paste your live deployment URL here before submission.
-
-Example: https://flowdocs-ai.vercel.app
+https://ajaia-llc.vercel.app/

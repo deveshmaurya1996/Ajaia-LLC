@@ -9,12 +9,12 @@ export type MockUser = {
 }
 
 export const mockUsers: MockUser[] = [
-  { id: "user_alice", name: "Alice", email: "alice@flowdocs.ai", avatarInitials: "A" },
-  { id: "user_bob", name: "Bob", email: "bob@flowdocs.ai", avatarInitials: "B" },
+  { id: "user_alice", name: "Alice", email: "alice@ajaia.llc", avatarInitials: "A" },
+  { id: "user_bob", name: "Bob", email: "bob@ajaia.llc", avatarInitials: "B" },
   {
     id: "user_charlie",
     name: "Charlie",
-    email: "charlie@flowdocs.ai",
+    email: "charlie@ajaia.llc",
     avatarInitials: "C",
   },
 ]

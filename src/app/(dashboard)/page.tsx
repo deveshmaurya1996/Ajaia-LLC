@@ -18,7 +18,7 @@ export default function DashboardPage() {
     <div className="mx-auto w-full max-w-3xl px-4 py-8 md:px-8 space-y-10">
       <section>
         <h1 className="text-2xl font-semibold tracking-tight">Hi, {user.name.split(" ")[0]}</h1>
-        <p className="mt-1 text-sm text-muted-foreground">Your workspace</p>
+        <p className="mt-1 text-sm text-muted-foreground">Ajaia LLC workspace</p>
       </section>
 
       <section>

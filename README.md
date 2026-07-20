@@ -1,4 +1,4 @@
-# FlowDocs AI
+# Ajaia LLC — Document Workspace
 
 Lightweight collaborative document editor — Ajaia LLC Full Stack Product Engineer take-home.
 
@@ -12,7 +12,6 @@ Lightweight collaborative document editor — Ajaia LLC Full Stack Product Engin
 ## Quick start
 
 ```bash
-cd flowdocs-ai
 npm install
 cp .env.example .env   # set DATABASE_URL
 npx prisma migrate dev

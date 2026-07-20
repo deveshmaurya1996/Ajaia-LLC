@@ -1,4 +1,4 @@
-# Architecture Note — FlowDocs AI
+# Architecture Note — Ajaia LLC
 
 ## Goal
 

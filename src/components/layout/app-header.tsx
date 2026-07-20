@@ -17,7 +17,7 @@ const pageTitles: Record<string, string> = {
 
 function getPageTitle(pathname: string) {
   if (pathname.startsWith("/document/")) return "Editor"
-  return pageTitles[pathname] ?? "FlowDocs"
+  return pageTitles[pathname] ?? "Ajaia LLC"
 }
 
 export function AppHeader() {

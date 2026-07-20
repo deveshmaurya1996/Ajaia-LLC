@@ -17,8 +17,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FlowDocs AI",
-  description: "An AI-native team workspace for structured document collaboration.",
+  title: "Ajaia LLC",
+  description: "Ajaia LLC — AI-native team workspace for structured document collaboration.",
 };
 
 export default function RootLayout({

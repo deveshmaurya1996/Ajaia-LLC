@@ -21,9 +21,9 @@ async function main() {
   await prisma.document.deleteMany()
   await prisma.user.deleteMany()
 
-  const alice = await upsertUser("user_alice", "alice@flowdocs.ai", "Alice")
-  const bob = await upsertUser("user_bob", "bob@flowdocs.ai", "Bob")
-  const charlie = await upsertUser("user_charlie", "charlie@flowdocs.ai", "Charlie")
+  const alice = await upsertUser("user_alice", "alice@ajaia.llc", "Alice")
+  const bob = await upsertUser("user_bob", "bob@ajaia.llc", "Bob")
+  const charlie = await upsertUser("user_charlie", "charlie@ajaia.llc", "Charlie")
 
   const sprintMeeting = await prisma.document.create({
     data: {

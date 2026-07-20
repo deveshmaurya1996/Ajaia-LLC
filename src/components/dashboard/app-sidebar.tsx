@@ -19,8 +19,8 @@ export function AppSidebar() {
   return (
     <aside className="hidden md:flex h-full w-[220px] shrink-0 flex-col overflow-hidden border-r border-border/60 bg-sidebar">
       <div className="flex h-14 items-center px-5 border-b border-border/60">
-        <Link href="/" className="text-[15px] font-semibold tracking-tight">
-          FlowDocs
+        <Link href="/" className="text-[15px] font-semibold tracking-tight leading-tight">
+          Ajaia LLC
         </Link>
       </div>
 
