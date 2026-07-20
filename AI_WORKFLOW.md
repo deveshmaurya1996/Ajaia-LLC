@@ -97,7 +97,7 @@ I treated AI output as a **draft**, not a merge-ready PR.
 
 ## If I had another 2–4 hours
 
-- Record and link the walkthrough video
+- ~~Record and link the walkthrough video~~ — [Loom walkthrough](https://www.loom.com/share/287aae8d452a4599aff609234c8787fd)
 - Wire Playwright E2E into CI
 - Tune NVIDIA prompts for richer insights on real content (not templates)
 - Add export to Markdown (small stretch, TipTap already has markdown support)

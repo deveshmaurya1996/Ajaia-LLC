@@ -2,8 +2,9 @@
 
 **Candidate:** Devesh Maurya  
 **Email:** deveshmaurya1996@gmail.com  
+**GitHub repository:** [https://github.com/deveshmaurya1996/Ajaia-LLC](https://github.com/deveshmaurya1996/Ajaia-LLC)  
 **Live product:** [https://ajaia-llc.vercel.app/](https://ajaia-llc.vercel.app/)  
-**Walkthrough video:** See `VIDEO_URL.txt` (paste your YouTube/Loom link before final upload)  
+**Walkthrough video:** [Loom walkthrough](https://www.loom.com/share/287aae8d452a4599aff609234c8787fd) (`VIDEO_URL.txt`)  
 **Google Drive folder:** _Paste your Drive folder link here before submitting_
 
 ---
@@ -12,13 +13,13 @@
 
 | Deliverable | Included | Location |
 |-------------|----------|----------|
-| Source code | ✅ | Repository root (this folder) |
+| Source code | ✅ | [GitHub](https://github.com/deveshmaurya1996/Ajaia-LLC) · repository root |
 | README with local setup | ✅ | `README.md` |
 | Architecture note | ✅ | `ARCHITECTURE.md` |
 | AI workflow note | ✅ | `AI_WORKFLOW.md` |
 | This submission index | ✅ | `SUBMISSION.md` |
 | Live deployment URL | ✅ | `LIVE_URL.txt` → [https://ajaia-llc.vercel.app/](https://ajaia-llc.vercel.app/) |
-| Walkthrough video URL | ⚠️ Pending | `VIDEO_URL.txt` |
+| Walkthrough video URL | ✅ | [Loom](https://www.loom.com/share/287aae8d452a4599aff609234c8787fd) · `VIDEO_URL.txt` |
 | Screenshots / demo GIF | — | Not required; live URL + video cover setup |
 
 ---
@@ -83,7 +84,7 @@ npm run build   # Production build
 | Automated tests | ✅ | Vitest + Playwright |
 | Architecture note | ✅ | `ARCHITECTURE.md` |
 | AI workflow note | ✅ | `AI_WORKFLOW.md` |
-| Walkthrough video (3–5 min) | ⚠️ Pending | Record and paste link in `VIDEO_URL.txt` |
+| Walkthrough video (3–5 min) | ✅ | [Loom walkthrough](https://www.loom.com/share/287aae8d452a4599aff609234c8787fd) |
 
 ---
 
@@ -102,7 +103,7 @@ All of the above works end to end on the live deployment.
 
 ## Walkthrough video outline (3–5 minutes)
 
-Record and upload to YouTube (unlisted) or Loom, then paste the link in `VIDEO_URL.txt`.
+Recorded on Loom: [Agilea Full Stack Document Workspace Walkthrough](https://www.loom.com/share/287aae8d452a4599aff609234c8787fd) (also in `VIDEO_URL.txt`).
 
 | Segment | What to show |
 |---------|--------------|
@@ -149,7 +150,7 @@ These were cut deliberately to protect depth in core flows:
 
 | Item | Working | Incomplete | Next 2–4 hours |
 |------|---------|------------|----------------|
-| **Walkthrough video** | Script ready (above) | Link not yet in `VIDEO_URL.txt` | Record 3–5 min Loom/YouTube |
+| **Walkthrough video** | ✅ [Loom link](https://www.loom.com/share/287aae8d452a4599aff609234c8787fd) in `VIDEO_URL.txt` | — | — |
 | **Google Drive bundle** | All files in repo | Folder link not pasted above | Zip repo + upload to Drive |
 | **Production seed** | App deployed | Confirm `prisma db seed` on Neon if demo users missing | Run seed on production DB |
 | **AI insights** | Heuristic + optional NVIDIA API | Not LLM-grade for complex docs | Tune prompts; cache invalidation |
@@ -210,7 +211,7 @@ VIDEO_URL.txt       Walkthrough video link
 
 Upload **one folder** containing:
 
-1. Full source code (this repository)
+1. Full source code — [GitHub repo](https://github.com/deveshmaurya1996/Ajaia-LLC) or this repository folder
 2. `README.md`
 3. `ARCHITECTURE.md`
 4. `AI_WORKFLOW.md`
@@ -219,7 +220,7 @@ Upload **one folder** containing:
 7. `VIDEO_URL.txt`
 8. `.env.example` (no secrets)
 
-Share the folder link with reviewers and include the live URL: [https://ajaia-llc.vercel.app/](https://ajaia-llc.vercel.app/)
+Share the folder link with reviewers and include the live URL ([https://ajaia-llc.vercel.app/](https://ajaia-llc.vercel.app/)) and GitHub repo ([https://github.com/deveshmaurya1996/Ajaia-LLC](https://github.com/deveshmaurya1996/Ajaia-LLC)).
 
 ---
 
