@@ -1,0 +1,102 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id         String          @id @default(cuid())
+  name       String
+  email      String          @unique
+  avatar     String?
+
+  documents  Document[]
+  shares     DocumentShare[]
+  activities Activity[]
+
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+}
+
+model Document {
+  id            String          @id @default(cuid())
+  title         String          @default("Untitled")
+  content       String         @default("")
+  templateType  String?
+
+  summary       String?
+  healthScore   Int?
+  healthIssues  Json?
+  readingTime   Int?
+
+  // AI extracted structured metadata
+  timeline      Json?
+  decisions     Json?
+  suggestions   Json?
+  tags          Json?
+
+  authorId      String
+  author        User            @relation(fields: [authorId], references: [id])
+  tasks         ExtractedTask[]
+  shares        DocumentShare[]
+  activities    Activity[]
+
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  @@index([authorId])
+}
+
+model ExtractedTask {
+  id          String   @id @default(cuid())
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  owner      String
+  action     String
+  dueDate    String?
+  completed  Boolean  @default(false)
+
+  createdAt  DateTime @default(now())
+
+  @@index([documentId])
+  @@index([completed])
+}
+
+model DocumentShare {
+  id          String   @id @default(cuid())
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+
+  permission  String   @default("editor")
+  createdAt   DateTime @default(now())
+
+  @@unique([documentId, userId])
+  @@index([userId])
+}
+
+model Activity {
+  id          String   @id @default(cuid())
+  type        String
+
+  documentId  String?
+  document    Document? @relation(fields: [documentId], references: [id], onDelete: SetNull)
+
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+
+  metadata    Json?
+  createdAt   DateTime @default(now())
+
+  @@index([userId])
+  @@index([createdAt])
+}
