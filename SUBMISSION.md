@@ -5,7 +5,7 @@
 **GitHub repository:** [https://github.com/deveshmaurya1996/Ajaia-LLC](https://github.com/deveshmaurya1996/Ajaia-LLC)  
 **Live product:** [https://ajaia-llc.vercel.app/](https://ajaia-llc.vercel.app/)  
 **Walkthrough video:** [Loom walkthrough](https://www.loom.com/share/287aae8d452a4599aff609234c8787fd) (`VIDEO_URL.txt`)  
-**Google Drive folder:** _Paste your Drive folder link here before submitting_
+**Google Drive folder:** [Ajaia-LLC-Submission](https://drive.google.com/drive/folders/1jCa5cBk4OdW-3fMhZFOKMvUUB-F2bdWs?usp=sharing)  
 
 ---
 
@@ -20,6 +20,7 @@
 | This submission index | ✅ | `SUBMISSION.md` |
 | Live deployment URL | ✅ | `LIVE_URL.txt` → [https://ajaia-llc.vercel.app/](https://ajaia-llc.vercel.app/) |
 | Walkthrough video URL | ✅ | [Loom](https://www.loom.com/share/287aae8d452a4599aff609234c8787fd) · `VIDEO_URL.txt` |
+| Google Drive bundle | ✅ | [Drive folder](https://drive.google.com/drive/folders/1jCa5cBk4OdW-3fMhZFOKMvUUB-F2bdWs?usp=sharing) |
 | Screenshots / demo GIF | — | Not required; live URL + video cover setup |
 
 ---
@@ -151,7 +152,7 @@ These were cut deliberately to protect depth in core flows:
 | Item | Working | Incomplete | Next 2–4 hours |
 |------|---------|------------|----------------|
 | **Walkthrough video** | ✅ [Loom link](https://www.loom.com/share/287aae8d452a4599aff609234c8787fd) in `VIDEO_URL.txt` | — | — |
-| **Google Drive bundle** | All files in repo | Folder link not pasted above | Zip repo + upload to Drive |
+| **Google Drive bundle** | ✅ [Drive folder](https://drive.google.com/drive/folders/1jCa5cBk4OdW-3fMhZFOKMvUUB-F2bdWs?usp=sharing) uploaded | — | — |
 | **Production seed** | App deployed | Confirm `prisma db seed` on Neon if demo users missing | Run seed on production DB |
 | **AI insights** | Heuristic + optional NVIDIA API | Not LLM-grade for complex docs | Tune prompts; cache invalidation |
 | **E2E in CI** | Tests pass locally | Not wired to GitHub Actions | Add CI job with test DB |
@@ -220,7 +221,7 @@ Upload **one folder** containing:
 7. `VIDEO_URL.txt`
 8. `.env.example` (no secrets)
 
-Share the folder link with reviewers and include the live URL ([https://ajaia-llc.vercel.app/](https://ajaia-llc.vercel.app/)) and GitHub repo ([https://github.com/deveshmaurya1996/Ajaia-LLC](https://github.com/deveshmaurya1996/Ajaia-LLC)).
+Share the folder link with reviewers and include the live URL ([https://ajaia-llc.vercel.app/](https://ajaia-llc.vercel.app/)), GitHub repo ([https://github.com/deveshmaurya1996/Ajaia-LLC](https://github.com/deveshmaurya1996/Ajaia-LLC)), and Google Drive folder ([Ajaia-LLC-Submission](https://drive.google.com/drive/folders/1jCa5cBk4OdW-3fMhZFOKMvUUB-F2bdWs?usp=sharing)).
 
 ---
 
